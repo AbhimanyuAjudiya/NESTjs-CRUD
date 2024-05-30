@@ -25,15 +25,69 @@
 
     List the running Docker containers to get the container ID:
 
-```bash
-docker container ls
-```
+    ```bash
+    docker container ls
+    ```
 3. **Access PostgreSQL Database:**
 
     Replace `<ContainerId>` with the actual container ID from the previous command and run:
 
-```bash
-docker exec -it <ContainerId> psql -U postgres nestjs_crud
-```
+    ```bash
+    docker exec -it <ContainerId> psql -U postgres nestjs_crud
+    ```
 
-###
+### Setting up the NESTjs Application
+
+1. **Clone the Repository:**
+
+    ```bash
+    git clone https://github.com/AbhimanyuAjudiya/NESTjs-CRUD.git
+    cd nestjs-crud
+    ```
+2. **Install Dependencies:**
+
+    ```bash
+    npm i
+    ```
+3. **Configure the Database:**
+
+   Ensure your `app.module.ts` is configured to connect to your PostgreSQL database.
+
+   ```typescript
+   TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'nestjs_crud',
+      entities: [User, WalletAddress],
+      synchronize: true,
+    }),
+   ```
+4. **Run the App**
+    ```bash
+    npm run start
+    ```
+
+## API Endpoints
+### Users
+- POST /users - Create a new user.
+- GET /users - Get all users.
+- GET /users/:id - Get a user by ID.
+- PATCH /users/:id - Update a user by ID.
+- DELETE /users/:id - Delete a user by ID.
+
+### Wallet Addresses
+- POST /wallet-addresses - Create a new wallet address.
+- GET /wallet-addresses - Get all wallet addresses.
+- GET /wallet-addresses/:id - Get a wallet address by ID.
+- PATCH /wallet-addresses/:id - Update a wallet address by ID.
+- DELETE /wallet-addresses/:id - Delete a wallet address by ID.
+
+### Testing the API
+You can use Postman or curl to test the API endpoints.
+
+### Additional Notes
+- Ensure your Docker container is running while you are developing and testing your NESTjs application.
+- For further customization, you can modify the configuration in app.module.ts and other files according to your needs.
