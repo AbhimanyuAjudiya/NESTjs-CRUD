@@ -72,6 +72,9 @@
 
 ## API Endpoints
 ### Users
+
+Please Ref. [user.dto.ts](https://github.com/AbhimanyuAjudiya/NESTjs-CRUD/blob/main/src/users/dto/user.dto.ts) to create user and update user
+
 - POST /users - Create a new user.
 - GET /users - Get all users.
 - GET /users/:id - Get a user by ID.
@@ -79,6 +82,7 @@
 - DELETE /users/:id - Delete a user by ID.
 
 ### Wallet Addresses
+Please Ref. [wallet-address.dto.ts](https://github.com/AbhimanyuAjudiya/NESTjs-CRUD/blob/main/src/wallet-address/dto/wallet-address.dto.ts) to create wallet and update wallet
 - POST /wallet-addresses - Create a new wallet address.
 - GET /wallet-addresses - Get all wallet addresses.
 - GET /wallet-addresses/:id - Get a wallet address by ID.
