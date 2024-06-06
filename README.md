@@ -35,31 +35,6 @@
     ```bash
     docker exec -it <ContainerId> psql -U postgres nestjs_crud
     ```
-
-### Database Setup
-
-Create the database and tables using the following SQL commands:
-```sql
-CREATE DATABASE nestjs_crud;
-```
-```sql
-CREATE TABLE Users (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(100),
-  email VARCHAR(100) UNIQUE,
-  password VARCHAR(100),
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-```sql
-CREATE TABLE WalletAddress (
-  id SERIAL PRIMARY KEY,
-  userId INTEGER REFERENCES Users(id),
-  address VARCHAR(100),
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-```
-
 ### Setting up the NESTjs Application
 
 1. **Clone the Repository:**
