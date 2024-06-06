@@ -73,23 +73,8 @@ CREATE TABLE WalletAddress (
     ```bash
     npm i
     ```
-3. **Configure the Database:**
 
-   Ensure your `app.module.ts` is configured to connect to your PostgreSQL database.
-
-   ```typescript
-   TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'nestjs_crud',
-      entities: [User, WalletAddress],
-      synchronize: true,
-    }),
-   ```
-4. **Run the App**
+3. **Run the App**
     ```bash
     npm run start
     ```
