@@ -1,9 +1,5 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { WalletAddress } from '../wallet-address/wallet-address.entity';
 
 @Entity()
 export class User {
@@ -19,6 +15,6 @@ export class User {
   @Column()
   password: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @OneToMany(() => WalletAddress, (walletAddress) => walletAddress.user)
+  walletAddresses: WalletAddress[];
 }

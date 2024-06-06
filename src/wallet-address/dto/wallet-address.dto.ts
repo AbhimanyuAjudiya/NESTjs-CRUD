@@ -1,17 +1,26 @@
-import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreateWalletAddressDto {
-  @IsNotEmpty()
-  userId: number;
-
+  @ApiProperty()
+  @IsString()
   @IsNotEmpty()
   address: string;
+
+  @ApiProperty()
+  @IsInt()
+  @IsNotEmpty()
+  userId: number;
 }
 
 export class UpdateWalletAddressDto {
-  @IsNotEmpty()
-  userId: number;
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  address?: string;
 
-  @IsNotEmpty()
-  address: string;
+  @ApiProperty()
+  @IsInt()
+  @IsOptional()
+  userId?: number;
 }

@@ -2,8 +2,8 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
   ManyToOne,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from '../users/user.entity';
 
@@ -12,12 +12,15 @@ export class WalletAddress {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, (user) => user.id)
-  user: User;
-
   @Column()
   address: string;
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @Column()
+  userId: number;
+
+  @ManyToOne(() => User, (user) => user.walletAddresses)
+  user: User;
 }
