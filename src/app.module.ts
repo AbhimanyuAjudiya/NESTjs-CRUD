@@ -5,6 +5,7 @@ import { WalletAddressModule } from './wallet-address/wallet-address.module';
 import { User } from './users/user.entity';
 import { WalletAddress } from './wallet-address/wallet-address.entity';
 import { ConfigModule } from '@nestjs/config';
+import { Logger } from './logger.service';
 
 @Module({
   imports: [
@@ -22,5 +23,6 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
     WalletAddressModule,
   ],
+  providers: [Logger],
 })
 export class AppModule {}

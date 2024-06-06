@@ -11,6 +11,7 @@ import {
   UpdateWalletAddressDto,
 } from './dto/wallet-address.dto';
 import { User } from 'src/users/user.entity';
+import { Logger } from '../logger.service';
 
 @Injectable()
 export class WalletAddressService {
@@ -19,6 +20,7 @@ export class WalletAddressService {
     private walletAddressRepository: Repository<WalletAddress>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    private readonly logger: Logger,
   ) {}
 
   async create(
@@ -28,6 +30,9 @@ export class WalletAddressService {
       id: createWalletAddressDto.userId,
     });
     if (!user) {
+      this.logger.error(
+        `User with ID ${createWalletAddressDto.userId} not found`,
+      );
       throw new BadRequestException('User does not exist');
     }
 
@@ -35,7 +40,10 @@ export class WalletAddressService {
       createWalletAddressDto,
     );
     walletAddress.user = user;
-    return this.walletAddressRepository.save(walletAddress);
+    const savedWalletAddress =
+      await this.walletAddressRepository.save(walletAddress);
+    this.logger.log(`Wallet address created: ${savedWalletAddress.id}`);
+    return savedWalletAddress;
   }
 
   findAll(): Promise<WalletAddress[]> {
@@ -48,6 +56,7 @@ export class WalletAddressService {
       relations: ['user'],
     });
     if (!walletAddress) {
+      this.logger.error(`Wallet address with ID ${id} not found`);
       throw new NotFoundException(`Wallet address #${id} not found`);
     }
     return walletAddress;
@@ -63,17 +72,24 @@ export class WalletAddressService {
         id: updateWalletAddressDto.userId,
       });
       if (!user) {
+        this.logger.error(
+          `User with ID ${updateWalletAddressDto.userId} not found`,
+        );
         throw new BadRequestException('User does not exist');
       }
       walletAddress.user = user;
     }
 
     Object.assign(walletAddress, updateWalletAddressDto);
-    return this.walletAddressRepository.save(walletAddress);
+    const updatedWalletAddress =
+      await this.walletAddressRepository.save(walletAddress);
+    this.logger.log(`Wallet address updated: ${updatedWalletAddress.id}`);
+    return updatedWalletAddress;
   }
 
   async remove(id: number): Promise<void> {
     const walletAddress = await this.findOne(id);
     await this.walletAddressRepository.remove(walletAddress);
+    this.logger.log(`Wallet address deleted: ${id}`);
   }
 }

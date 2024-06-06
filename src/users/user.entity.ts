@@ -16,7 +16,9 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => WalletAddress, (walletAddress) => walletAddress.user)
+  @OneToMany(() => WalletAddress, (walletAddress) => walletAddress.user, {
+    cascade: true,
+  })
   walletAddresses: WalletAddress[];
 
   async setPassword(password: string): Promise<void> {
